@@ -1,11 +1,13 @@
 
 
 
-
+// Basic stuff
 document.addEventListener("DOMContentLoaded", function () {
+const buttons = document.querySelectorAll(".buttons_ a");
 
-  const buttons = document.querySelectorAll(".buttons_ a");
 
+
+// Animations for buttons
 buttons.forEach(button => {
   button.addEventListener("mouseenter", () => {
     gsap.to(button, {duration: 0.4, scale: 1.03, ease: "power1.out"});
@@ -15,9 +17,13 @@ buttons.forEach(button => {
   });
 });
 
+
+
 gsap.fromTo("body", {opacity: 0, scale: 0}, {delay: 1.5, duration: 1, opacity: 1, scale: 1});
 
 
+
+// Alert for game folder clickable
 document.querySelectorAll('#game-folder').forEach(function(el) {
   el.addEventListener('click', function() {
     Swal.fire({
@@ -56,27 +62,37 @@ document.querySelectorAll('#game-folder').forEach(function(el) {
 
 
 
-
-
+// When the page loads, set all images hidden
 document.addEventListener("DOMContentLoaded", function () {
   const images = document.querySelectorAll("img");
   images.forEach(function (img) {
       img.style.display = "none";
   });
 
-  const anchors = document.querySelectorAll("a");
-  anchors.forEach(function (anchor) {
-      anchor.addEventListener("click", function () {
-          const id = this.getAttribute("id");
-          const img = document.querySelector("#img" + id);
-          const icon = this.firstChild;
-          if (img.style.display === "none") {
-              img.style.display = "block";
-              icon.className = "fa-solid fa-angle-down";
-          } else {
-              img.style.display = "none";
-              icon.className = "fa-solid fa-angle-up";
-          }
-      });
+
+
+// On clicking the 'Show image' buttons, show the image
+const anchors = document.querySelectorAll("a");
+  anchors.forEach(anchor => {
+    anchor.addEventListener("click", function () {
+      
+      // Trigger for special
+      if (this.id === "special") {
+        const img = document.querySelector("#img1");
+        const icon = document.querySelector("a").firstChild;
+        const display = img.style.display;
+        img.style.display = display === "none" ? "block" : "none";
+        icon.className = display === "none" ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up";
+      } else { 
+
+        // Trigger for usual
+        const id = this.getAttribute("id");
+        const img = document.querySelector("#img" + id);
+        const icon = this.firstChild;
+        const display = img.style.display;
+        img.style.display = display === "none" ? "block" : "none";
+        icon.className = display === "none" ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up";
+      }
+    });
   });
-});
+}); // End of function
